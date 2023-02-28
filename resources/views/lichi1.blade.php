@@ -22,6 +22,7 @@
         @vite(['resources/sass/app.scss', 'resources/js/lichi.js'])
     </head>
     <body>
+
     <div id="app"></div>
     </body>
 </html>

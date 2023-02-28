@@ -1,35 +1,7 @@
 <template>
     <div >
-        <div class="row">
         <div class="conteiner col-4">
-            <ul class="list-group" >
-                <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary">
-                    <span style = "color:#cff4fc" @click="shows(0)"> Все товары </span>
-                    <span class="badge bg-primary rounded-pill" @click="getTest4()">{{ p_all }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center"  v-if="show[0]"  v-for="(item, i) in groups[0]">
-                    <ul class="list-group w-100" >
-                            <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary">
-                                <span style = "color:#cff4fc" @click="shows(item['id'])">{{ item['name'] }} </span>
-                                <span class="badge bg-primary rounded-pill" @click="getTest41(item['id'])">{{ item['p_count_all']}}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center" v-if="show[item['id']]"   v-for="(jtem, j) in groups[item['id']]">
-                                <ul class="list-group w-100" >
-                                    <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary">
-                                        <span style = "color:#cff4fc" @click="shows(jtem['id'])">{{ jtem['name'] }} </span>
-                                        <span class="badge bg-primary rounded-pill" @click="getTest41(jtem['id'])">{{ jtem['p_count_all']}}</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="show[jtem['id']]" v-for="(ztem, z) in groups[jtem['id']]">
-                                        <span @click="shows(ztem['id'])">{{ ztem['name'] }} </span>
-                                        <span class="badge bg-primary rounded-pill" @click="getTest41(ztem['id'])">{{ ztem['p_count_all']}}</span>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="conteiner col-4">
+            test5
             <table>
                 <thead>
                     <tr>
@@ -47,7 +19,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
     </div>
 </template>
 
