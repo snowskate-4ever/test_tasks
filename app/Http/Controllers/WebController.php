@@ -21,6 +21,7 @@ class WebController extends Controller
         }
         print_r('<br>');
         $week = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+        $ww = null; $wt = null;
         foreach($str_arr as $key => $str) {                 // перебираем строки
             $tmp = explode(', ', $str);             // разбиваем всю строку по запятой
             $tmp1 = explode(' с ', $tmp[0]);        // разбиваем первую подстроку на дни работы и время
@@ -45,30 +46,21 @@ class WebController extends Controller
                 $tmp2 = explode('-', $tmp1[0]);
                 $k = 0;
                 foreach($week as $day) {
-                    if($day === $tmp2[0]){
-                        $w[$key][$day]['begin'] = $tmp3[0];
-                        $w[$key][$day]['end'] = $tmp3[1];
-                        if(isset($tmp[1])){
-                            $w[$key][$day]['break_begin'] = $break_begin;
-                            $w[$key][$day]['break_end'] = $break_end;
-                        }
-                        $k = 1;
-                    }
-                    if($k === 1){
-                        $w[$key][$day]['begin'] = $tmp3[0];
-                        $w[$key][$day]['end'] = $tmp3[1];
-                        if(isset($tmp[1])){
-                            $w[$key][$day]['break_begin'] = $break_begin;
-                            $w[$key][$day]['break_end'] = $break_end;
+                    if($day === $tmp2[0]||$k === 1){
+                        $wt[$key][$day]['begin'] = $tmp3[0];
+                        $wt[$key][$day]['end'] = $tmp3[1];
+                        if(isset($tmp[1])) {
+                            $ww[$key][$day]['begin'] = $break_begin;
+                            $ww[$key][$day]['end'] = $break_end;
                         }
                         $k = 1;
                     }
                     if($day === $tmp2[1]){
-                        $w[$key][$day]['begin'] = [0];
-                        $w[$key][$day]['end'] = $tmp3[1];
-                        if(isset($tmp[1])){
-                            $w[$key][$day]['break_begin'] = $break_begin;
-                            $w[$key][$day]['break_end'] = $break_end;
+                        $wt[$key][$day]['begin'] = $tmp3[0];
+                        $wt[$key][$day]['end'] = $tmp3[1];
+                        if(isset($tmp[1])) {
+                            $ww[$key][$day]['begin'] = $break_begin;
+                            $ww[$key][$day]['end'] = $break_end;
                         }
                         $k = 2;
                     }
@@ -77,17 +69,30 @@ class WebController extends Controller
             if(count($tmp2) == 1) {
                 foreach($week as $day) {
                     if ($day === $tmp2[0]) {
-                        $w[$key][$day]['begin'] = $tmp3[0];
-                        $w[$key][$day]['end'] = $tmp3[1];
-                        if(isset($tmp[1])){
-                            $w[$key][$day]['break_begin'] = $break_begin;
-                            $w[$key][$day]['break_end'] = $break_end;
+                        $wt[$key][$day]['begin'] = $tmp3[0];
+                        $wt[$key][$day]['end'] = $tmp3[1];
+                        if(isset($tmp[1])) {
+                            $ww[$key][$day]['begin'] = $break_begin;
+                            $ww[$key][$day]['end'] = $break_end;
                         }
                     }
                 }
             }
         }
-        foreach($w as $arr){
+        print_r('Массив WT<br><br>');
+        print_r('Сам массив:<br>');
+        print_r($wt);
+        print_r('<br><br>Построчный вывод:<br>');
+        foreach($wt as $arr){
+            print_r($arr);
+            print_r('<br>');
+        }
+        print_r('<br>');
+        print_r('Массив WW<br><br>');
+        print_r('Сам массив:<br>');
+        print_r($ww);
+        print_r('<br><br>Построчный вывод:<br>');
+        foreach($ww as $arr){
             print_r($arr);
             print_r('<br>');
         }
