@@ -16,48 +16,144 @@
 
         <style>
             body {
-                font-family: 'Nunito', sans-serif;
+                font-family: 'Inter', sans-serif;
             }
             h1 {
-                font-family: 'Inter';
+                font-family: 'Inter', sans-serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 28.4375px;
                 line-height: 120%;
+                margin-bottom: 50px;
             }
             .product_image {
-                /* Rectangle 20 */
-
                 box-sizing: border-box;
-
-                position: absolute;
                 width: 428.59px;
                 height: 410.99px;
-                left: 124px;
-                top: 216.79px;
-
-                /* Line */
                 border: 0.677083px solid #E5E5E5;
                 border-radius: 3.38542px;
                 background:url(no_img.png)no-repeat;
                 background-size: contain;
                 background-position: center;
+                display: inline-block;
+                padding: 30px;
+                float:left;
+            }
+            .product_info {
+                display: inline-block;
+                padding: 0 30px 0 10px;
+                text-align: left;
+            }
+            h2 {
+                font-family: 'Inter', sans-serif;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 30pt;
+                line-height: 120%;
+                display: flex;
+                align-items: center;
+                letter-spacing: 0.004em;
+                color: #031A27;
+            }
+            .pale {
+                font-family: 'Inter', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12pt;
+                line-height: 158%;
+                letter-spacing: 0.004em;
+                color: #929292;
+            }
+            .product_name {
+                width: 165px;
+                display: inline-block;
+            }
+            .bold {
+                font-family: 'Inter', sans-serif;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12pt;
+                line-height: 158%;
+                letter-spacing: 0.004em;
+                color: #031A27;
+            }
+            .price {
+                width: 80px;
+                display: inline-block;
+                text-align: right;
+            }
+            .razdel{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14pt;
+                line-height: 158%;
+                display: flex;
+                align-items: center;
+                letter-spacing: 0.004em;
+                color: #000000;
+            }
+            .itogo {
+                font-style: normal;
+                font-weight: 600;
+                font-size: 17pt;
+                line-height: 120%;
+                display: flex;
+                align-items: center;
+                letter-spacing: 0.004em;
+                color: #031A27;
+            }
+            .bck {
+                background: rgba(0, 0, 0, 0.5);
+                overflow-y: scroll;
+                padding-top: 8vh;
+                visibility: visible;
+                opacity: 1;
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1000;
+                align-items: center
+            }
+            .tingle-modal__close {
+                position: fixed;
+                top: 2.5rem;
+                right: 2.5rem;
+                z-index: 1000;
+                padding: 0;
+                width: 2rem;
+                height: 2rem;
+                border: none;
+                background-color: transparent;
+                color: #fff;
+                cursor: pointer;
+            }
+            .tingle-modal-box {
+                max-width: 450px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 60%;
+                border-radius: 4px;
+                background: #fff;
+                opacity: 1;
+                cursor: auto;
+                will-change: transform, opacity;
+            }
+            .tingle-modal-box__content {
+                padding: 40px;
+            }
+            .input_form {
+                box-sizing: border-box;
+                line-height: 1.4;
+            }
+            .final {
+                text-align: left;
             }
         </style>
         @vite(['resources/sass/app.scss', 'resources/js/tss.js'])
     </head>
     <body>
-    <main class="container">
-        <div class="starter-template text-center py-5 px-3">
-            <h1>Конфигуратор сервера</h1>
-            <section class="send_info">
-            </section>
-            <section class="server_conf">
-                <div class="product_image"></div>
-                <div class="product_info"></div>
-            </section>
-        </div>
-    </main>
         <div id="app"></div>
     </body>
 </html>

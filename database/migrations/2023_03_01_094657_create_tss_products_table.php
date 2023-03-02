@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('tss_products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('price');
+            $table->unsignedBigInteger('tss_category_id');
+            $table->string('url');
             $table->timestamps();
         });
     }

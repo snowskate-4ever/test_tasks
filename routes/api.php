@@ -7,6 +7,7 @@ use App\Http\Controllers\Lichi\Test41Controller;
 use App\Http\Controllers\Lichi\Test4Controller;
 use App\Http\Controllers\People\IndexController;
 use App\Http\Controllers\People\StoreController;
+use App\Http\Controllers\TssController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group(['prefix' => 'tss' ], function(){
+    Route::get('/all', [TssController::class, 'index']);
 });
 Route::group(['namespace' => 'People','prefix' => 'people' ], function(){
     Route::get('/', [IndexController::class, '__invoke']);

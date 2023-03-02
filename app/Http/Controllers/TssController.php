@@ -7,7 +7,8 @@ class TssController extends BaseController
 {
     public function index()
     {
+        $response = $this->service->index();
 
-        return view('tss');
+        return $response;
     }
 }

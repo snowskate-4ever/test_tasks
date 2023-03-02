@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/web', [WebController::class, 'index']);
-Route::get('/tss', [TssController::class, 'index']);
+Route::get('/tss', function () {return view('tss');});
 
 Route::group(['namespace' => 'Lichi','prefix' => 'lichi' ], function(){
     Route::get('/test1', [IndexController::class, '__invoke']);
