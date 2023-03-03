@@ -53,7 +53,7 @@
                     <span class="razdel">CPU:</span>
                     <div class="form-check">
                         <template v-for="product in products">
-                            <div v-if="product['tss_category_id'] === 2">
+                            <div v-if="product['tss_category_id'] == 2">
                                 <input class="form-check-input" type="radio" v-bind:id="product['id']" v-bind:name="product['id']" v-bind:value="product['id']" v-model="cpu_active">
                                 <label class="form-check-label" v-bind:for=" product['id']">
                                     <span class="pale product_name">{{ product['name'] }} </span>
@@ -66,7 +66,7 @@
                     <span class="razdel">RAID:</span>
                     <div class="form-check">
                         <template v-for="product in products">
-                            <div v-if="product['tss_category_id'] === 3">
+                            <div v-if="product['tss_category_id'] == 3">
                                 <input class="form-check-input" type="radio" v-bind:id="product['id']" v-bind:name="product['id']" v-bind:value="product['id']" v-model="raid_active">
                                 <label class="form-check-label" v-bind:for=" product['id']">
                                     <span class="pale product_name">{{ product['name'] }} </span>
@@ -79,7 +79,7 @@
                     <span class="razdel">LAN ADAPTER:</span>
                     <div class="form-check">
                         <template v-for="product in products">
-                            <div v-if="product['tss_category_id'] === 4">
+                            <div v-if="product['tss_category_id'] == 4">
                                 <input class="form-check-input" type="radio" v-bind:id="product['id']" v-bind:name="product['id']" v-bind:value="product['id']" v-model="lan_active">
                                 <label class="form-check-label" v-bind:for=" product['id']">
                                     <span class="pale product_name">{{ product['name'] }} </span>
@@ -120,24 +120,23 @@ export default {
     watch: {
         cpu_active (newValue, oldValue) {
             if(oldValue === null) {
-                this.itogo = this.itogo + this.products[newValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price'])
             } else {
-                this.itogo = this.itogo + this.products[newValue]['price'] - this.products[oldValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price']) - Number(this.products[oldValue]['price'])
             }
-            //console.log(this.itogo)
         },
         raid_active (newValue, oldValue) {
             if(oldValue === null) {
-                this.itogo = this.itogo + this.products[newValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price'])
             } else {
-                this.itogo = this.itogo + this.products[newValue]['price'] - this.products[oldValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price']) - Number(this.products[oldValue]['price'])
             }
         },
         lan_active (newValue, oldValue) {
             if(oldValue === null) {
-                this.itogo = this.itogo + this.products[newValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price'])
             } else {
-                this.itogo = this.itogo + this.products[newValue]['price'] - this.products[oldValue]['price']
+                this.itogo = this.itogo + Number(this.products[newValue]['price']) - Number(this.products[oldValue]['price'])
             }
         }
     },
@@ -146,7 +145,12 @@ export default {
             axios.get('/api/tss/all')
                 .then( data => {
                     this.products = data.data.products
-                    //console.log(this.products)
+                    //console.log(data.data.products)
+                    console.log(Object.keys(this.products).length)
+                    var k = Object.keys(this.products).length
+                    for(var i = 0; i<k; i++) {
+                        //console.log(this.products[i])
+                    }
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -163,10 +167,10 @@ export default {
             }
             if (k === 0) {
                 this.send_order = true
-                console.log(this.cpu_active)
-                this.cpu_selected = this.products[this.cpu_active]['name'] + ' - ' +this.products[this.cpu_active]['price'] + ' ₽'
-                this.lan_selected = this.products[this.lan_active]['name'] + ' - ' +this.products[this.lan_active]['price'] + ' ₽'
-                this.raid_selected = this.products[this.raid_active]['name'] + ' - ' +this.products[this.raid_active]['price'] + ' ₽'
+                //console.log(this.cpu_active)
+                this.cpu_selected = this.products[this.cpu_active]['name'] + ' - ' + this.products[this.cpu_active]['price'] + ' ₽'
+                this.lan_selected = this.products[this.lan_active]['name'] + ' - ' + this.products[this.lan_active]['price'] + ' ₽'
+                this.raid_selected = this.products[this.raid_active]['name'] + ' - ' + this.products[this.raid_active]['price'] + ' ₽'
             }
         },
         closeSendOrder () {
