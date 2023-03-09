@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group(['prefix' => 'tss' ], function(){
     Route::get('/all', [TssController::class, 'index']);
+    Route::post('/sendorder', [TssController::class, 'sendorder']);
 });
 Route::group(['namespace' => 'People','prefix' => 'people' ], function(){
     Route::get('/', [IndexController::class, '__invoke']);

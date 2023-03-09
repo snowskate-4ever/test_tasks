@@ -26,12 +26,16 @@
                             <p role="status" aria-live="polite" aria-atomic="true"></p>
                             <ul></ul></div>
                         <form action="/cart/#wpcf7-f29364-o1" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
-                            <p><span class="form-control" data-name="text-572"><input type="text" name="text-572" value="" size="40" maxlength="50" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="ФИО *"></span></p>
-                            <p><span class="form-control" data-name="tel-714"><input type="tel" name="tel-714" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Номер телефона *" inputmode="text"></span></p>
-                            <p><span class="form-control" data-name="email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="E-mail *"></span></p>
-                            <p><span class="form-control" data-name="textarea-880"><textarea name="textarea-880" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Комментарий к заказу"></textarea></span></p>
                             <p>
-                                <input value="Оставить заявку" class="btn btn-primary w-100" @click="closeSendOrder">
+                                <span class="form-control" data-name="text-572">
+                                    <input type="text" name="text-572" value="" size="40" maxlength="50" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" v-model="fio" aria-required="true" aria-invalid="false" placeholder="ФИО *">
+                                </span>
+                            </p>
+                            <p><span class="form-control" data-name="tel-714"><input type="tel" name="tel-714" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" v-model="phone" aria-required="true" aria-invalid="false" placeholder="Номер телефона *" inputmode="text"></span></p>
+                            <p><span class="form-control" data-name="email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" v-model="email" aria-required="true" aria-invalid="false" placeholder="E-mail *"></span></p>
+                            <p><span class="form-control" data-name="textarea-880"><textarea name="textarea-880" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" v-model="comment" placeholder="Комментарий к заказу"></textarea></span></p>
+                            <p>
+                                <input value="Оставить заявку" class="btn btn-primary w-100" @click="sendOrder()">
                                 <span class="wpcf7-spinner"></span>
                             </p>
                             <div class="wpcf7-response-output" aria-hidden="true"></div></form></div>
@@ -111,7 +115,11 @@ export default {
             raid_selected: ' ',
             lan_selected: ' ',
             itogo: 0,
-            send_order: false
+            send_order: false,
+            fio: '',
+            phone: '',
+            email: '',
+            comment: ''
         }
     },
     mounted() {
@@ -146,7 +154,7 @@ export default {
                 .then( data => {
                     this.products = data.data.products
                     //console.log(data.data.products)
-                    console.log(Object.keys(this.products).length)
+                    //console.log(Object.keys(this.products).length)
                     var k = Object.keys(this.products).length
                     for(var i = 0; i<k; i++) {
                         //console.log(this.products[i])
@@ -168,6 +176,9 @@ export default {
             if (k === 0) {
                 this.send_order = true
                 //console.log(this.cpu_active)
+                this.id_cpu = this.products[this.cpu_active]['id']
+                this.id_lan = this.products[this.lan_active]['id']
+                this.id_raid = this.products[this.raid_active]['id']
                 this.cpu_selected = this.products[this.cpu_active]['name'] + ' - ' + this.products[this.cpu_active]['price'] + ' ₽'
                 this.lan_selected = this.products[this.lan_active]['name'] + ' - ' + this.products[this.lan_active]['price'] + ' ₽'
                 this.raid_selected = this.products[this.raid_active]['name'] + ' - ' + this.products[this.raid_active]['price'] + ' ₽'
@@ -175,6 +186,39 @@ export default {
         },
         closeSendOrder () {
             this.send_order = false
+        },
+        sendOrder() {
+            console.log(this.id_cpu + ' - ' + this.id_raid + ' - ' + this.id_lan + ' - ' + this.fio + ' - ' + this.phone + ' - ' + this.email + ' - ' + this.comment)
+            axios.post('/api/tss/sendorder',{
+                id_cpu: this.id_cpu,
+                id_raid: this.id_raid,
+                id_lan: this.id_lan,
+                fio: this.fio,
+                phone: this.phone,
+                email: this.email,
+                comment: this.comment
+                })
+                .then(res => {
+                    //console.log(res)
+                    if (res.status === 200) {
+                        //this.res_status = 'Данные успешно сохранены!'
+                    }
+                    this.send_order = false
+                    this.id_cpu = null
+                    this.id_lan = null
+                    this.id_raid = null
+                    this.cpu_selected = ''
+                    this.lan_selected = ''
+                    this.raid_selected = ''
+                    location.reload();
+                    //console.log(res)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+                .finally( {
+
+                })
         }
     }
 }
