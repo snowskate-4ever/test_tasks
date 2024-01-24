@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/pinbox', [\App\Http\Controllers\PinboxController::class, 'pinbox'])->name('pinbox.index');
 
 Route::get('/web', [WebController::class, 'index']);
 Route::get('/tss', function () {return view('tss');});
